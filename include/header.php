@@ -24,11 +24,16 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
+
 
 </head>
 
 <body>
+    <div id="mask" style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 1040;background-color: white;  opacity: .9; display:none">
+    <div class="alert alert-info" role="alert" style='position: absolute;  top: 30%;  left: 50%;  transform: translate(-30%, -50%);'>
+        <img src='<?php echo CSSPATH;?>/loading_animation.gif'> Cargando ...
+    </div>
+  </div>
 
 
     <!-- Navigation -->

@@ -33,19 +33,24 @@
  } else if("json" == $state){
    echo $producto->getJson();
    exit();
+ } else if("exclusive" == $state){
+
  }
 ?>
-  <div class="row" style='position:relative; border:1px solid #ddd; border-radius:4px; padding:4px;' >
-      <?php
-        if ("normal" == state) {
-          echo $producto->getHtml();
-        }else{
-          echo $producto->getHtmlPopup();
-        }
 
-       ?>
+<?php if ("normal" == $state):?>
+  <div id='infoProducto' class="row" style='position:relative; border:1px solid #ddd; border-radius:4px; padding:4px;' >
+<?php else :?>
+  <div style='position:relative;'>
+<?php endif ?>
+  <?php
+        if (("normal" == $state) || ("exclusive" == $state))
+          echo $producto->getHtml();
+        else if ("popup" == $state)
+          echo $producto->getHtmlPopup();
+    ?>
   </div>
-  <?php if("normal" == state): ?>
+  <?php if("normal" == $state): ?>
   <div class="row">
     <h2 class='subtitle'>También te puede interesar...</h2>
     <?php
@@ -55,7 +60,25 @@
     ?>
   </div>
 <?php endif ?>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Detalle del producto</h4>
+        </div>
+        <div class="modal-body">
+          <div id='data-container'></div>
+        </div>
+      </div>
+    </div>
+  </div>
 <?php
+
+  $bottomScripts = array();
+  $bottomScripts[] = "loadProducto.js";
+  $bottomScripts[] = "modalDomProducto.js";
   if ("normal" == $state){
     include("./include/footer.php");
   }else if("popup" == $state)
