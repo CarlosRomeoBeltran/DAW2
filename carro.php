@@ -89,6 +89,7 @@
               // Make a call to the REST api to execute the payment
               return actions.payment.execute().then(function() {
                   window.alert('¡Pago completado!');
+                  document.location.href = "gracias.php";
               });
           }
 

@@ -24,7 +24,7 @@
     exit();
   }
   $title = "Plantas el Caminàs -> " . $categoria["nombre"];
-  include("./include/header.php");
+
 
   require './include/JasonGrimes/Paginator.php';
 
@@ -32,7 +32,7 @@
 
   $currentPage = (isset($_GET["currentPage"]) ? $_GET["currentPage"] : 1);
   //En principio este parámetro no estaría en producción. Lo usamos para ir probando el paginador con distintos tamaños
-  $itemsPerPage = (isset($_GET["itemsPerPage"]) ? $_GET["itemsPerPage"] : 6);
+  $itemsPerPage = (isset($_GET["itemsPerPage"]) ? $_GET["itemsPerPage"] : 2);
 
   // $query = " SELECT COUNT(*) as cuenta FROM productos WHERE id_categoria = :id";
   // $statement = $connect->prepare($query);
@@ -41,7 +41,42 @@
 
   $totalItems = $productos->getCountProductosByCategoria($_GET["id"]);
 
-?>
+  $state = "normal";
+   if (isset($_GET["state"])){
+     $state = $_GET["state"];
+   }
+   if ("normal" == $state){
+     include("./include/header.php");
+   }elseif("exclusive" == $state){
+     /**
+     Nada. Sólo lo pongo para que veáis este caso más claro
+     */
+   }
+
+   if ("normal" == $state):?>
+  <h2 class='subtitle' style='margin-left:0; margin-right:0;'><?php echo $categoria["nombre"];?></h2>
+  <div id="data-container">
+  <?php endif; ?>
+   <div class="row">
+     <?php
+     foreach($productos->getProductosByCategoria($_GET["id"], $itemsPerPage, $currentPage) as $producto){
+        echo $producto->getThumbnailHtml();
+     }
+     ?>
+   </div>
+   <div class="row">
+     <?php
+     $urlPattern = HOME . "categoria.php?id=" . $_GET["id"] . "&itemsPerPage=$itemsPerPage&currentPage=(:num)";
+     $paginator = new Paginator($totalItems, $itemsPerPage, $currentPage, $urlPattern);
+     //echo $paginator->toHtml();
+     include './include/JasonGrimes/examples/pager.phtml';
+     ?>
+   </div>
+  <?php if ("normal" == $state):?>
+  </div>
+  <?php endif; ?>
+
+
   <div class="row">
     <h2 class='subtitle'><?php echo $categoria["nombre"];?></h2>
     <?php
@@ -58,6 +93,11 @@
     include './include/JasonGrimes/examples/pager.phtml';
     ?>
   </div>
+
 <?php
-include("./include/footer.php");
+if ("normal" == $state){
+  $bottomScripts = array();
+  $bottomScripts[] = "loadCategorias.js";
+  include("./include/footer.php");
+}
 ?>

@@ -9,7 +9,7 @@
 ?>
 <div class="row">
   <div class="jumbotron">
-      <h1>Gracias</h1>
+      <h1>Gracias</h1><br>
       <p> Gracias por realizar su compra con nosotros</p>
       <p><a class="btn btn-primary btn-lg" href="/tienda/" role="button">Continuar</a></p>
   </div>
