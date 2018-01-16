@@ -8,7 +8,7 @@
   require './include/ElCaminas/Producto.php';
   require './include/ElCaminas/Productos.php';
   use ElCaminas\Carrito;
-?>
+?>  /*commit*/
   <script src="https://www.paypalobjects.com/api/checkout.js"></script>
   <script>
   function checkDelete(){
