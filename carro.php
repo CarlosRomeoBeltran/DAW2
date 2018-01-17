@@ -8,7 +8,7 @@
   require './include/ElCaminas/Producto.php';
   require './include/ElCaminas/Productos.php';
   use ElCaminas\Carrito;
-?>  /*commit*/
+?>
   <script src="https://www.paypalobjects.com/api/checkout.js"></script>
   <script>
   function checkDelete(){
@@ -23,7 +23,6 @@
 
 <?php
   $carrito = new Carrito();
-  //Falta comprobar qué acción: add, delete, empty
   $carrito->addItem($_GET["id"], 1);
   $action = "view";
   if (($_SERVER["REQUEST_METHOD"] == "POST")){
@@ -38,12 +37,12 @@
         $carrito->addItem($_GET["id"], 1);
       }
       //Siempre devolvemos en itemCount los que ya hay ahora en el carro de ese producto
-      echo json_encode(array("HOME"=> HOME, "itemCount"=>$carrito->getItemCount($_GET["id"]), "cuantos"=> $carrito->howMany(), "total"=> $carrito->getTotal()));
+      echo json_encode(array("HOME"=> "./", "itemCount"=>$carrito->getItemCount($_GET["id"]), "cuantos"=> $carrito->howMany(), "total"=> $carrito->getTotal()));
       exit();
     }elseif ($action == "update"){
         //Cuando es update (desde el botón de actualizar de la ventana modal, la cantidad es la que introduce el usuario)
         $carrito->addItem($_GET["id"], $_POST["cantidad"]);
-        echo json_encode(array("HOME"=> HOME, "itemCount"=>$carrito->getItemCount($_GET["id"]), "cuantos"=> $carrito->howMany(), "total"=> $carrito->getTotal()));
+        echo json_encode(array("HOME"=> "./", "itemCount"=>$carrito->getItemCount($_GET["id"]), "cuantos"=> $carrito->howMany(), "total"=> $carrito->getTotal()));
         exit();
     }
   }else {

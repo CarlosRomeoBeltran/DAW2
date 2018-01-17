@@ -1,5 +1,5 @@
 //El elemento del header que muestra la cantidad de productoss
-var cuantosEl = $(".nav.navbar-nav.navbar-right .badge");
+var cuantosEl = $(".badge");
 //El elemento dom de la máscara
 var mask = $("#mask");
 //El elemento dom con la información del producto añadido al carro
